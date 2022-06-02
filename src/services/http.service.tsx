@@ -2,7 +2,9 @@ import axios from 'axios'
 import { localStorageService } from './localstorage.service'
 import { url } from '../environment'
 import { toastService } from './toast.service'
-
+declare module 'axios' {
+  export interface AxiosResponse<T = any> extends Promise<T> { }
+}
 axios.interceptors.response.use(
   response => {
     // Returns response body
@@ -31,7 +33,7 @@ axios.interceptors.response.use(
 // const getRoute = (string, subString, index) => {
 //     return string.split(subString, index).join(subString).length;
 // }
-const request = async (method:string, apiUrl:string, body:Record<string,any>, headers:Record<string,any>, options:Record<string,any>) => {
+const request = async (method: string, apiUrl: string, body: Record<string, any>, headers?: Record<string, any>, options?: Record<string, any>): Promise<any> => {
   try {
     const apiToken = localStorageService.getSessionToken()
     const refreshToken = localStorageService.getSessionRefreshToken()
@@ -48,7 +50,7 @@ const request = async (method:string, apiUrl:string, body:Record<string,any>, he
   }
 }
 
-const outsideRequest = async (method:string, url:string, body:Record<string,any>, headers:Record<string,any>) => {
+const outsideRequest = async (method: string, url: string, body: Record<string, any>, headers: Record<string, any>):Promise<any>  => {
   try {
     const requestHeaders = !headers ? {} : headers
     if (method === 'get' || method === 'delete') return axios[method](url, { headers: requestHeaders })
@@ -58,7 +60,7 @@ const outsideRequest = async (method:string, url:string, body:Record<string,any>
   }
 }
 
-const _handleError = async (err:any) => {
+const _handleError = async (err: any): Promise<any>  => {
   if (err && err.response) {
     if (err.response.status === 403 || err.response.status === 405) {
       localStorage.clear()

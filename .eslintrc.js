@@ -4,12 +4,17 @@ module.exports = {
     node: true,
     jest: true,
   },
-  extends: 'eslint:recommended',
+  // extends: 'eslint:recommended',
+  extends: ['eslint:recommended','standard', 'react-app', 'prettier'],
   parser: '@typescript-eslint/parser',
-  plugins: ['@typescript-eslint'],
+  plugins: ['@typescript-eslint', 'prettier'],
   parserOptions: {
     ecmaVersion: 2017,
     sourceType: 'module',
+    ecmaFeatures: {
+      jsx: true,
+      useJSXTextNode: true
+    },
   },
   rules: {
     indent: ['error', 2],
