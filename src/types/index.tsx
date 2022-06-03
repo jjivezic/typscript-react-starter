@@ -15,3 +15,8 @@ export type User = {
     phone:string,
     _id:string
 }
+
+export type errorResponse = {
+    message: string,
+
+  }
