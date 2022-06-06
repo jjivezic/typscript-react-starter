@@ -6,32 +6,32 @@ import './navbar.scss'
 const Navbar:React.FC = () => {
 
   // const dispatch = useDispatch()
-  const store = useAppSelector(state => state)
+  const user = useAppSelector(state => state.auth.user)
   const logout = () => {
     // dispatch(userActions.logout())
   }
-  console.log('STORE', store)
+  console.log('STORE', user)
   return (
     <nav>
       <h3>STARTER</h3>
       <ul>
         <li>
-          <NavLink exact to="/">
+          <NavLink to="/">
            Home
           </NavLink>
         </li>
-        {store.auth.user && (
+        {user && (
           <li>
-            <NavLink to="/app">Dashboard</NavLink>
+            <NavLink to="/dashboard">Dashboard</NavLink>
           </li>
         )}
-        {!store.auth.user && (
+        {user && (
           <li>
             <NavLink to="/login">login</NavLink>
           </li>
         )}
         <li>
-          {store.auth.user && (
+          {user && (
             <a href="/" onClick={logout}>
               Logout
             </a>

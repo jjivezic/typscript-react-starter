@@ -5,14 +5,14 @@ import { User } from 'types'
 type Initial = {
   user: User,
   loading: boolean,
-  error: null | {}
+  errorMessage: string
 }
 
 const initialUser: User = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')!) : null
 const initialState:Initial = {
   user: initialUser,
   loading: false,
-  error: null
+  errorMessage: ''
 }
 
 const slice = createSlice({
@@ -33,11 +33,11 @@ const slice = createSlice({
       console.log('extraReducers success', current(state), action.payload)
       localStorageService.set('user', action.payload)
       state.user = action.payload
-      state.error = null
+      state.errorMessage = ''
     })
     builder.addCase(login.rejected, (state, action) => {
       console.log('extraReducers error', action)
-      state.error = action.error
+      state.errorMessage = action.error.message!
     })
   }
 })

@@ -29,13 +29,13 @@ const Login: React.FC = () => {
   const validateForm = () => {
     return userData.email && userData.password
   }
-  if (store.auth.error) {
+  if (store.auth.errorMessage) {
     console.log('LOGIN GRESKA', store.auth)
   }
 
   return (
     <form className="auth-form" style={{ textAlign: 'center' }}>
-      {store.auth.error && <h1>{store.auth.error.message}</h1>}
+      {store.auth.errorMessage && <h1>{store.auth.errorMessage}</h1>}
       <h6 className="auth-title">Login 222</h6>
       <section>
         <div className="form-group custom-input">
